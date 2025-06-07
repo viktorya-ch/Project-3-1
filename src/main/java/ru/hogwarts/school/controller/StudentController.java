@@ -1,5 +1,6 @@
 package ru.hogwarts.school.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,7 @@ public class StudentController {
     }
 
     @PostMapping
+    @Operation(description = "{Добавление нового студента}",summary = "{Добавление нового студента}")
     public Student createStudent(@RequestBody Student student) {
         return studentService.addStudent(student);
     }
@@ -56,9 +58,6 @@ public class StudentController {
     return ResponseEntity.ok(students);
     }
 
-   @GetMapping("/{id}")
-    public Student getStudent(@PathVariable Long id) {
-        return studentService.getStudent(id);
-    }
+
 
 }
