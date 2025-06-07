@@ -6,13 +6,13 @@ import java.util.Collection;
 
 public interface JavaStudentService {
 
-    Student addStudent(Student student);
+    Student createStudent(Student student);
 
-    Student getStudent(Long id);
+    Student findStudent(Long id);
 
     Student editStudent(Student student);
 
-    Student deleteStudent(long id);
+    void deleteStudent(long id);
 
     Collection<Student> getAllStudents();
 }
