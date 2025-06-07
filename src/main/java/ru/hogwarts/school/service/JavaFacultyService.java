@@ -6,9 +6,9 @@ import java.util.Collection;
 
 public interface JavaFacultyService {
 
-    Faculty addFaculty(Faculty faculty);
+    Faculty createFaculty(Faculty faculty);
 
-    Faculty getFaculty (Long id);
+    Faculty findFaculty (Long id);
 
     Faculty editFaculty(Faculty faculty);
 
