@@ -1,12 +1,13 @@
 package ru.hogwarts.school.controller;
 
 
-import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collections;
@@ -26,12 +27,12 @@ public class FacultyController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<Faculty>> getFaculty(@PathVariable Long id) {
-        Optional<Faculty> faculty = facultyService.findFaculty(id);
+    public Optional<Faculty> getFaculty(@PathVariable Long id) {
+        Optional<Faculty> faculty = facultyService.getFaculty(id);
         if (faculty == null) {
-            return ResponseEntity.notFound().build();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return ResponseEntity.ok(faculty);
+        return faculty;
     }
 
     @PostMapping
@@ -40,18 +41,19 @@ public class FacultyController {
     }
 
     @PutMapping
-    public ResponseEntity<Faculty> editFaculty(@RequestBody Faculty faculty) {
-        Faculty foundFaculty = facultyService.editFaculty(faculty);
-        if (foundFaculty == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    public Faculty editFaculty(@PathVariable Long id, @RequestBody Faculty editFaculty) {
+        Faculty faculty = facultyService.editFaculty(id,editFaculty.getName(),editFaculty.getColor());
+        if (faculty == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return ResponseEntity.ok(foundFaculty);
+        return faculty;
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteFaculty(@PathVariable Long id) {
-        facultyService.deleteFaculty(id);
-        return ResponseEntity.ok().build();
+    public void deleteFaculty(@PathVariable Long id) {
+        if(!facultyService.deleteFaculty(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping
@@ -67,6 +69,9 @@ public class FacultyController {
         return facultyService.findByNameOrColorIgnoreCase(searchTerm);
     }
 
-
+    @GetMapping ("/{facultyId}/students")
+    public List<Student> getStudentByFaculty(@PathVariable Long facultyId) {
+        return facultyService.getStudentsByFaculty(facultyId);
+    }
 
 }

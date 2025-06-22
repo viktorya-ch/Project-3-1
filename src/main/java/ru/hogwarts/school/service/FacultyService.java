@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
-import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.*;
 
@@ -21,9 +20,10 @@ public class FacultyService implements JavaFacultyService{
     }
 
     @Override
-    public Optional<Faculty> findFaculty (Long id) {
+    public Optional<Faculty> getFaculty (Long id) {
         return facultyRepository.findById(id);
     }
+
 
     @Override
     public Faculty editFaculty(Faculty faculty) {
@@ -31,8 +31,10 @@ public class FacultyService implements JavaFacultyService{
     }
 
     @Override
-    public void deleteFaculty(long id) {
-         facultyRepository.deleteById(id);   }
+    public boolean deleteFaculty(long id) {
+         facultyRepository.deleteById(id);
+        return false;
+    }
 
 
     @Override
@@ -53,6 +55,10 @@ public class FacultyService implements JavaFacultyService{
 
     public List<Student>getStudentsByFaculty(Long facultyId){
        return facultyRepository.findById(facultyId).map(Faculty::getStudents).orElse(null);
+    }
+    @Override
+    public Faculty editFaculty(Long id, String name, String color) {
+        return null;
     }
 
 }

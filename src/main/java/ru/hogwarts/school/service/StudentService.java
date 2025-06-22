@@ -31,13 +31,15 @@ public class StudentService implements JavaStudentService {
     }
 
     @Override
-    public ru.hogwarts.school.model.Student deleteStudent(long id) {
+    public boolean deleteStudent(long id) {
         Student student = studentRepository.findById(id).orElse(null);
-        if (student != null){
+        if (student != null) {
             studentRepository.deleteById(id);
         }
-        return student;
+        return deleteStudent(id);
     }
+
+
 
     @Override
     public Collection<Student>getAllStudents(){
@@ -50,7 +52,18 @@ public class StudentService implements JavaStudentService {
     }
 
 
+    @Override
     public Faculty getFacultyByStudent(Long studentId) {
         return studentRepository.findById(studentId).map(Student::getFaculty).orElse(null);
+    }
+
+    @Override
+    public Student getStudent(Long id) {
+        return null;
+    }
+
+    @Override
+    public Student editStudent(Long id, String name, int age) {
+        return null;
     }
 }
