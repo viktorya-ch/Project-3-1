@@ -20,7 +20,7 @@ public class StudentService implements JavaStudentService {
     }
 
     @Override
-    public Student findStudent(Long id){
+    public Optional<Student> findStudent(Long id){
         return studentRepository.findById(id);
     }
 
@@ -30,8 +30,12 @@ public class StudentService implements JavaStudentService {
     }
 
     @Override
-    public void Student deleteStudent(long id) {
-        studentRepository.deleteById(id);
+    public ru.hogwarts.school.model.Student deleteStudent(long id) {
+        Student student = studentRepository.findById(id).orElse(null);
+        if (student != null){
+            studentRepository.deleteById(id);
+        }
+        return student;
     }
 
     @Override
@@ -39,6 +43,10 @@ public class StudentService implements JavaStudentService {
         return studentRepository.findAll();
     }
 
+    @Override
+    public List<Student> getStudentsByAge(int min, int max) {
+        return studentRepository.findByAgeBetween(min,max);
+    }
 
 
 }
