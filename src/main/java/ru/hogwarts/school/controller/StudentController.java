@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
@@ -62,6 +63,11 @@ public class StudentController {
     @GetMapping ("/students/age")
     public List<Student>getStudentsByAge(@RequestParam int min, @RequestParam int max){
         return studentService.getStudentsByAge(min,max);
+    }
+
+    @GetMapping ("/{studentId}/faculty")
+    public Faculty getFacultyByStudent(@PathVariable Long studentId){
+        return studentService.getFacultyByStudent(studentId);
     }
 
 
