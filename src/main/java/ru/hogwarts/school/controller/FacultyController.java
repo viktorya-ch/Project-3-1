@@ -11,6 +11,7 @@ import ru.hogwarts.school.service.FacultyService;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -25,8 +26,8 @@ public class FacultyController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Faculty> getFaculty(@PathVariable Long id) {
-        Faculty faculty = facultyService.getFaculty(id);
+    public ResponseEntity<Optional<Faculty>> getFaculty(@PathVariable Long id) {
+        Optional<Faculty> faculty = facultyService.findFaculty(id);
         if (faculty == null) {
             return ResponseEntity.notFound().build();
         }
@@ -35,7 +36,7 @@ public class FacultyController {
 
     @PostMapping
     public Faculty createFaculty(@RequestBody Faculty faculty) {
-        return facultyService.addFaculty(faculty);
+        return facultyService.createFaculty(faculty);
     }
 
     @PutMapping
@@ -53,31 +54,19 @@ public class FacultyController {
         return ResponseEntity.ok().build();
     }
 
-//   @GetMapping
-//    public ResponseEntity<Collection<Faculty>> findFaculties(@RequestParam(required = false) String color) {
-//        if (color != null && !color.isBlank()) {
-//            return ResponseEntity.ok((Collection<Faculty>) facultyService.findByColor(color));
-//        }
-//        return ResponseEntity.ok((Collection<Faculty>) Collections.emptyList());
-//    }
-
-//     @GetMapping
-//    @ResponseBody
-//    public Collection<Faculty>findFaculties(@RequestParam (required = false)String color){
-//        if (color !=  null && !color.isBlank()){
-//            return facultyService.findByColor(color);
-//        }
-//        return Collections.emptyList();
-//
-//     }
-
     @GetMapping
     public List<Faculty> findFaculties(@RequestParam (required = false)String color){
         if (color !=  null && !color.isBlank()){
-            return facultyService.findByColor(color);
+            return facultyService.findFaculty(color);
         }
         return Collections.emptyList();
     }
+
+    @GetMapping ("/faculties/search")
+    public List<Faculty> searchFaculties(@RequestParam String searchTerm){
+        return facultyService.findByNameOrColorIgnoreCase(searchTerm);
+    }
+
 
 
 }

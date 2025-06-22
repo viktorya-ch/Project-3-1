@@ -11,7 +11,7 @@ import java.util.*;
 public class FacultyService implements JavaFacultyService{
 
     @Autowired
-    private FacultyRepository facultyRepository;
+    private ru.hogwarts.school.repository.FacultyRepository facultyRepository;
 
 
    @Override
@@ -20,7 +20,7 @@ public class FacultyService implements JavaFacultyService{
     }
 
     @Override
-    public Faculty findFaculty (Long id) {
+    public Optional<Faculty> findFaculty (Long id) {
         return facultyRepository.findById(id);
     }
 
@@ -30,9 +30,8 @@ public class FacultyService implements JavaFacultyService{
     }
 
     @Override
-    public void Faculty deleteFaculty(long id) {
-        facultyRepository.deleteById(id);
-    }
+    public void deleteFaculty(long id) {
+         facultyRepository.deleteById(id);   }
 
 
     @Override
@@ -41,5 +40,14 @@ public class FacultyService implements JavaFacultyService{
     }
 
 
+
+    public List<Faculty>findFaculty(String color){
+       return facultyRepository.findFaculty(color);
+    }
+
+    @Override
+    public List<Faculty> findByNameOrColorIgnoreCase(String searchTerm) {
+        return facultyRepository.findByNameOrColorIgnoreCase(searchTerm);
+    }
 
 }

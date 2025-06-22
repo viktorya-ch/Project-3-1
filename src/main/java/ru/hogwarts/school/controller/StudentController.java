@@ -10,7 +10,7 @@ import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 
 @RestController
@@ -24,8 +24,8 @@ public class StudentController {
         this.studentService = studentService;
     }
     @GetMapping("{id}")
-    public ResponseEntity<Student> getStudentInfo(@PathVariable Long id) {
-        Student student = studentService.findStudent(id);
+    public ResponseEntity<Optional<Student>> getStudentInfo(@PathVariable Long id) {
+        Optional<Student> student = studentService.findStudent(id);
         if (student == null) {
             return ResponseEntity.notFound().build();
         }
@@ -57,6 +57,11 @@ public class StudentController {
     public ResponseEntity<Collection<Student>>getAllStudents(){
     Collection<Student> students = studentService.getAllStudents();
     return ResponseEntity.ok(students);
+    }
+
+    @GetMapping ("/students/age")
+    public List<Student>getStudentsByAge(@RequestParam int min, @RequestParam int max){
+        return studentService.getStudentsByAge(min,max);
     }
 
 
