@@ -2,8 +2,10 @@ package ru.hogwarts.school.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.OneToMany;
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -70,4 +72,14 @@ public class Faculty {
     public void setColor(String color) {
         this.color = color;
     }
+
+    @OneToMany(mappedBy = "faculty")
+    private List<Student> students;
+
+   public List<Student>getStudents(){
+       return students;
+   }
+   public void setStudents(List<Student>students){
+       this.students= students;
+   }
 }

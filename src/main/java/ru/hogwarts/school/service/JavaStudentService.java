@@ -19,4 +19,5 @@ public interface JavaStudentService {
     Collection<Student> getAllStudents();
 
     List<Student> getStudentsByAge(int min, int max);
+
 }
