@@ -11,7 +11,6 @@ public interface JavaFacultyService {
 
     Faculty createFaculty(Faculty faculty);
 
-    //Optional<Faculty> findFaculty (Long id);
 
     Faculty editFaculty(Faculty faculty);
 
