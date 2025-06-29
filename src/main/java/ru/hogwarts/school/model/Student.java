@@ -5,11 +5,12 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name = "students")
 public class Student {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
 
@@ -70,15 +71,16 @@ public class Student {
         this.age = age;
     }
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "avatar_id", referencedColumnName = "id")
+    private Avatar avatar;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "faculty_id")
-    private Faculty faculty;
+    public Avatar getAvatar(Avatar avatar) {
+        return avatar;
+    }
 
-    public Faculty getFaculty(){
-        return faculty;
+    public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
     }
-    public void setFaculty(Faculty faculty){
-        this.faculty=faculty;
-    }
+
 }
