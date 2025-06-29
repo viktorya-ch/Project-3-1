@@ -54,7 +54,7 @@ public class StudentService implements JavaStudentService {
 
     @Override
     public Faculty getFacultyByStudent(Long studentId) {
-        return studentRepository.findById(studentId).map(Student::getFaculty).orElse(null);
+        return (Faculty) studentRepository.findById(studentId).map(Student::getFaculty).orElse(null);
     }
 
     @Override
