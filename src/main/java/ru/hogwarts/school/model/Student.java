@@ -2,14 +2,16 @@ package ru.hogwarts.school.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "students")
 public class Student {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
 
@@ -70,15 +72,30 @@ public class Student {
         this.age = age;
     }
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "avatar_id", referencedColumnName = "id")
+    private Avatar avatar;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "faculty_id")
-    private Faculty faculty;
+    public Avatar getAvatar(Avatar avatar) {
+        return avatar;
+    }
 
-    public Faculty getFaculty(){
-        return faculty;
+    public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
     }
-    public void setFaculty(Faculty faculty){
-        this.faculty=faculty;
+
+    @OneToMany(mappedBy = "student")
+    private List<Faculty> faculties;
+
+    public List<Faculty>getFaculties(){
+        return faculties;
     }
+    public void setFaculties(List<Faculty>faculties){
+        this.faculties= faculties;
+    }
+
+    public Object getFaculty() {
+        return faculties;
+    }
+
 }
