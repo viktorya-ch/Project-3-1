@@ -66,4 +66,16 @@ public class StudentService implements JavaStudentService {
     public Student editStudent(Long id, String name, int age) {
         return null;
     }
+
+
+
+    public long getTotalStudentCount(){
+        return studentRepository.countAllStudents();
+    }
+    public double getAverageStudentAge(){
+        return studentRepository.findAverageAge();
+    }
+    public List<Student>getLastFiveStudents(){
+        return studentRepository.findTopFiveByIdDesc();
+    }
 }

@@ -20,13 +20,14 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping ("/student")
+@RequestMapping ("/students")
 public class StudentController {
 
+    @Autowired
     private final StudentService studentService;
     private final AvatarService avatarService;
 
-    @Autowired
+
     public StudentController(StudentService studentService, AvatarService avatarService) {
         this.studentService = studentService;
         this.avatarService = avatarService;
@@ -85,6 +86,25 @@ public class StudentController {
         avatarService.uploadAvatar(id,avatar);
         return ResponseEntity.ok().build();
     }
+
+
+    @GetMapping("count")
+    public ResponseEntity<Long> getTotalStudentCount(){
+        long count = studentService.getTotalStudentCount();
+        return ResponseEntity.ok(count);
+    }
+    @GetMapping("average-age")
+    public ResponseEntity<Double>getAverageStudentAge(){
+        double avgAge = studentService.getAverageStudentAge();
+        return ResponseEntity.ok(avgAge);
+    }
+    @GetMapping("last-five")
+    public ResponseEntity<List<Student>> getLastFiveStudents(){
+        List<Student> students = studentService.getLastFiveStudents();
+        return ResponseEntity.ok(students);
+    }
+
+
 
 
 }
