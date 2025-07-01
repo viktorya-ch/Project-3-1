@@ -64,10 +64,9 @@ public class AvatarController {
     }
 
     @GetMapping("all")
-    public ResponseEntity<Page<Avatar>>getAvatars
+    public Page<Avatar>getAvatars
             ( @RequestParam (defaultValue = "0") int page, @RequestParam (defaultValue = "10") int size){
-        Page<Avatar>avatarPage = avatarService.getAvatars(page,size);
-        return ResponseEntity.ok(avatarPage);
+        return avatarService.getAvatars(page,size);
     }
 
 
