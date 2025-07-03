@@ -1,6 +1,7 @@
 package ru.hogwarts.school;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,6 +31,7 @@ public class FacultyControllerTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
+
 
 
     @Test
