@@ -9,8 +9,8 @@ import org.springframework.data.annotation.Id;
 
 import java.util.Objects;
 
-@Entity
-@Table(name = "students")
+@Entity(name = "student")
+@Table
 public class Student {
 
 

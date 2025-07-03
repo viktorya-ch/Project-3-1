@@ -3,13 +3,15 @@ package ru.hogwarts.school.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import org.springframework.data.annotation.Id;
 
 
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "faculty")
+@Table
 public class Faculty {
 
     @Id
