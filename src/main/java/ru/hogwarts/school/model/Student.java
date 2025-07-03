@@ -1,8 +1,12 @@
 package ru.hogwarts.school.model;
 
+
+
+
 import jakarta.persistence.*;
 
-import java.util.List;
+import org.springframework.data.annotation.Id;
+
 import java.util.Objects;
 
 @Entity
@@ -84,17 +88,19 @@ public class Student {
         this.avatar = avatar;
     }
 
-    @OneToMany(mappedBy = "student")
-    private List<Faculty> faculties;
+    @ManyToOne
+    @JoinColumn(name = "faculty_id")
+    private  Faculty faculty;
 
-    public List<Faculty>getFaculties(){
-        return faculties;
+
+    public Faculty getFaculties(){
+        return faculty;
     }
-    public void setFaculties(List<Faculty>faculties){
-        this.faculties= faculties;
+    public void setFaculties(Faculty faculty){
+        this.faculty= faculty;
     }
 
     public Object getFaculty() {
-        return faculties;
+        return faculty;
     }
 }

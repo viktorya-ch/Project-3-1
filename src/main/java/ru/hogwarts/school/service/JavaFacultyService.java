@@ -19,7 +19,7 @@ public interface JavaFacultyService {
     Collection<Faculty> getAllFaculties();
 
 
-    List<Faculty> findByNameOrColorIgnoreCase(String searchTerm);
+    List<Faculty> findByNameIgnoreCaseOrColorIgnoreCase(String name, String color);
 
     List<Student>getStudentsByFaculty(Long facultyId);
 

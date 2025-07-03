@@ -45,12 +45,12 @@ public class FacultyService implements JavaFacultyService{
 
 
     public List<Faculty>findFaculty(String color){
-       return facultyRepository.findFaculty(color);
+       return facultyRepository.findByColor(color);
     }
 
     @Override
-    public List<Faculty> findByNameOrColorIgnoreCase(String searchTerm) {
-        return facultyRepository.findByNameOrColorIgnoreCase(searchTerm);
+    public List<Faculty> findByNameIgnoreCaseOrColorIgnoreCase(String name, String color) {
+        return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name, color);
     }
 
     public List<Student>getStudentsByFaculty(Long facultyId){

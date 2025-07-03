@@ -33,7 +33,7 @@ public class AvatarController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<byte[]> getAvatarFromBd (@PathVariable Long id){
             byte[] avatarData = avatarService.getAvatarData(id);
             if (avatarData != null) {
@@ -44,7 +44,7 @@ public class AvatarController {
 
         }
 
-        @GetMapping
+        @GetMapping ("/file/{filename:.+}")
         public ResponseEntity<byte[]> getAvatarFromFile(@PathVariable String filename){
         try {
             File file = new File(" path/to/avatars/folder" + filename);

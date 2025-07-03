@@ -1,6 +1,9 @@
 package ru.hogwarts.school.model;
 
+
+
 import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -21,7 +24,7 @@ public class Avatar {
     @Lob
     private byte[] data;
 
-    @OneToOne (mappedBy = "avatar", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "avatar", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Student student;
 
 

@@ -10,8 +10,8 @@ import java.util.List;
 
 @Repository
 public interface FacultyRepository extends JpaRepository<Faculty,Long> {
-    List<Faculty> findFaculty(String color);
+    List<Faculty> findByColor(String color);
 
-@Query("SELECT f FROM Faculty f WHERE LOWER(f.name)LIKE LOWER(CONTACT('%',: searchTerm,'%'))" + "OR LOWER (f.color)LIKE LOWER (CONCAT('%', : searchTerm,'%'))")
-    List<Faculty>findByNameOrColorIgnoreCase(@Param("searchTerm")String searchTerm);
+@Query("SELECT f FROM Faculty f WHERE LOWER(f.name)LIKE CONCAT('%', LOWER(:searchTerm),'%')" + "OR LOWER (f.color)LIKE CONCAT('%', LOWER(:searchTerm),'%')")
+    List<Faculty>findByNameIgnoreCaseOrColorIgnoreCase(@Param("name")String name, @Param("color")  String color);
 }

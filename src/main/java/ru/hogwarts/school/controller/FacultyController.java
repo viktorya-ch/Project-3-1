@@ -64,8 +64,8 @@ public class FacultyController {
     }
 
     @GetMapping ("/faculties/search")
-    public List<Faculty> searchFaculties(@RequestParam String searchTerm){
-        return facultyService.findByNameOrColorIgnoreCase(searchTerm);
+    public List<Faculty> searchFaculties(@RequestParam String name, @RequestParam String color){
+        return facultyService.findByNameIgnoreCaseOrColorIgnoreCase(name,color);
     }
 
     @GetMapping ("/{facultyId}/students")
