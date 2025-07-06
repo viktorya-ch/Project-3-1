@@ -129,4 +129,9 @@ public class FacultyService implements JavaFacultyService{
         return null;
     }
 
+    public String getLongestFacultyName(){
+       return facultyRepository.findAll().stream().map(Faculty::getName).filter(name->name != null && !name.isEmpty()).
+               reduce((first,second)->first.length()>second.length()?first:second).orElse(" Факультет не найден ");
+    }
+
 }

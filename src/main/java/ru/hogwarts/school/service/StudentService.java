@@ -16,6 +16,7 @@ import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService implements JavaStudentService {
@@ -133,4 +134,17 @@ public class StudentService implements JavaStudentService {
     public Student editStudent(Long id, String name, int age) {
         return null;
     }
+
+    public List<String> getStudentsStartingWithA(){
+        return studentRepository.findAll().stream().map(Student::getName).filter(name->name.toUpperCase().startsWith(" A ")).map(String::toUpperCase).sorted().collect(Collectors.toList());
+    }
+
+    public double getAverageAge(){
+        List<Student> students = studentRepository.findAll();
+        if (students.isEmpty()){
+            return 0.0;
+        }
+        return students.stream().mapToInt(Student::getAge).average().orElse(0.0);
+    }
+
 }
