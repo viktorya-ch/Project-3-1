@@ -23,7 +23,6 @@ public interface JavaStudentService {
 
     Faculty getFacultyByStudent(Long studentId);
 
-    Student getStudent(Long id);
 
     Student editStudent(Long id, String name, int age);
 }
