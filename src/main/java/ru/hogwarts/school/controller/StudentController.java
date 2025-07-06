@@ -23,6 +23,12 @@ import java.util.List;
 @RequestMapping ("/student")
 public class StudentController {
 
+    @GetMapping("/student/{name}")
+    public Student getStudent(@PathVariable("name") String name){
+        return StudentService.getStudent(name);
+
+    }
+
     private final StudentService studentService;
     private final AvatarService avatarService;
 
@@ -33,7 +39,7 @@ public class StudentController {
     }
     @GetMapping("{id}")
     public Student getStudent(@PathVariable Long id){
-        Student student = studentService.getStudent(id);
+        Student student = StudentService.getStudent(String.valueOf(id));
         if (student == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

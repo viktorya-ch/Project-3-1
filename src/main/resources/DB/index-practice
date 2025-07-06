@@ -1,0 +1,3 @@
+databaseIndex-practice:
+    - include:
+        file: liquibase/scripts/user.sql

@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS Faculty (
+id SERIAL PRIMARY KEY,
+name VARCHAR (50) NOT NULL,
+color VARCHAR (50) NOT NULL,
+CONSTRAINT unique_faculty_name_color UNIQUE(name,color));
+
+
+CREATE TABLE IF NOT EXISTS Student (
+id SERIAL PRIMARY KEY,
+name VARCHAR (50) UNIQUE NOT NULL,
+age INT DEFAULT 20 CHECK (age>=16), faculty_id INT,
+FOREIGN KEY  (faculty_id) REFERENCES Faculty(id));
+
+
+UPDATE Student
+SET age = 20
+WHERE age IS NULL;
