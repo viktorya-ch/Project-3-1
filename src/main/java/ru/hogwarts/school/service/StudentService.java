@@ -15,11 +15,49 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
 public class StudentService implements JavaStudentService {
+    private List<String> students = List.of(" Lily ", " Jones ", " Oliver ", " Anna ", " Noah ", " Oscar ");
+
+    private synchronized void printStudent(String name) {
+        System.out.println(name);
+    }
+
+
+    public void printStudentsInParallel(){
+        System.out.println(students.get(0));
+        System.out.println(students.get(1));
+    }
+
+    CompletableFuture<Void> future1 = CompletableFuture.runAsync(()->{
+        System.out.println(students.get(2));
+        System.out.println(students.get(3));
+    });
+
+    CompletableFuture<Void>future2 = CompletableFuture.runAsync(()->{
+        System.out.println(students.get(4));
+        System.out.println(students.get(5));
+    });
+
+    public void printStudentsSynchronized(){
+        printStudent(students.get(0));
+        printStudent(students.get(1));
+    }
+
+    CompletableFuture<Void> future3 = CompletableFuture.runAsync(()->{
+        printStudent(students.get(2));
+        printStudent(students.get(3));
+    });
+
+    CompletableFuture<Void>future4 = CompletableFuture.runAsync(()->{
+        printStudent(students.get(4));
+        printStudent(students.get(5));
+    });
+
 
     private static String STUDENT_SERVICE_URL = "https://api.hogwartsmap.org/age/19/student?q";
 

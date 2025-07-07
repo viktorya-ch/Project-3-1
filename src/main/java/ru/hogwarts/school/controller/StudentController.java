@@ -23,51 +23,6 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping ("/student")
 public class StudentController {
 
-    private List<String> students = List.of(" Lily ", " Jones ", " Oliver ", " Anna ", " Noah ", " Oscar ");
-
-    @GetMapping("/students/print-parallel")
-    public void printStudentsInParallel(){
-        System.out.println(students.get(0));
-        System.out.println(students.get(1));
-    }
-
-    CompletableFuture<Void>future1 = CompletableFuture.runAsync(()->{
-        System.out.println(students.get(2));
-        System.out.println(students.get(3));
-    });
-
-    CompletableFuture<Void>future2 = CompletableFuture.runAsync(()->{
-        System.out.println(students.get(4));
-        System.out.println(students.get(5));
-    });
-
-
-    private synchronized void printStudent(String name) {
-        System.out.println(name);
-    }
-
-    @GetMapping("/students/print-synchronized")
-    public void printStudentsSynchronized(){
-       printStudent(students.get(0));
-        printStudent(students.get(1));
-    }
-    CompletableFuture<Void>future3 = CompletableFuture.runAsync(()->{
-        printStudent(students.get(2));
-        printStudent(students.get(3));
-    });
-    CompletableFuture<Void> future4 = CompletableFuture.runAsync(()->{
-        printStudent(students.get(4));
-        printStudent(students.get(5));
-    });
-
-
-
-    @GetMapping("/student/{name}")
-    public Student getStudent(@PathVariable("name") String name){
-        return StudentService.getStudent(name);
-
-    }
-
     private final StudentService studentService;
     private final AvatarService avatarService;
 
@@ -76,6 +31,25 @@ public class StudentController {
         this.studentService = studentService;
         this.avatarService = avatarService;
     }
+
+
+    @GetMapping("/students/print-parallel")
+    public void printStudentsInParallel(){
+        studentService.printStudentsInParallel();
+    }
+
+    @GetMapping("/students/print-synchronized")
+    public void printStudentsSynchronized(){
+        studentService.printStudentsSynchronized();
+    }
+
+    @GetMapping("/student/{name}")
+    public Student getStudent(@PathVariable("name") String name){
+        return StudentService.getStudent(name);
+
+    }
+
+
     @GetMapping("{id}")
     public Student getStudent(@PathVariable Long id){
         Student student = StudentService.getStudent(String.valueOf(id));
