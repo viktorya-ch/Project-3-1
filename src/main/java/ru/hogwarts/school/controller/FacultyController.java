@@ -80,9 +80,8 @@ public class FacultyController {
 
     @GetMapping("/faculties/sum")
     public int getSumOfFirstMillion(){
-        int n = 1_000_000;
-        int sum = n * (n+1) / 2;
-        return sum;
-    }
+        return facultyService.getSumOfFirstMillion();
+}
+
 
 }
