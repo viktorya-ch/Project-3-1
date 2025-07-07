@@ -16,18 +16,12 @@ import ru.hogwarts.school.service.StudentService;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
-
+import java.util.concurrent.CompletableFuture;
 
 
 @RestController
 @RequestMapping ("/student")
 public class StudentController {
-
-    @GetMapping("/student/{name}")
-    public Student getStudent(@PathVariable("name") String name){
-        return StudentService.getStudent(name);
-
-    }
 
     private final StudentService studentService;
     private final AvatarService avatarService;
@@ -37,6 +31,25 @@ public class StudentController {
         this.studentService = studentService;
         this.avatarService = avatarService;
     }
+
+
+    @GetMapping("/students/print-parallel")
+    public void printStudentsInParallel(){
+        studentService.printStudentsInParallel();
+    }
+
+    @GetMapping("/students/print-synchronized")
+    public void printStudentsSynchronized(){
+        studentService.printStudentsSynchronized();
+    }
+
+    @GetMapping("/student/{name}")
+    public Student getStudent(@PathVariable("name") String name){
+        return StudentService.getStudent(name);
+
+    }
+
+
     @GetMapping("{id}")
     public Student getStudent(@PathVariable Long id){
         Student student = StudentService.getStudent(String.valueOf(id));
@@ -90,6 +103,16 @@ public class StudentController {
 
         avatarService.uploadAvatar(id,avatar);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/students/names-starting-with-a")
+    public List<String>getStudentsStartingWithA(){
+        return studentService.getStudentsStartingWithA();
+    }
+
+    @GetMapping ("/students/average-age")
+    public double getAverageAge(){
+        return studentService.getAverageAge();
     }
 
 
